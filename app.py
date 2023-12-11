@@ -1,6 +1,10 @@
 from flask import Flask
 
-app = Flask(__main__)
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello! this is a home page <H1>HELLO<H1>"
 
 
 if __name__ == "__main__":
