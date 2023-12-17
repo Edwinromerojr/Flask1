@@ -24,11 +24,21 @@ def login():
             return redirect(url_for("user"))
         return render_template("login.html")
 
-@app.route("/user")
+@app.route("/user", methods=["POST", "GET"])
 def user():
+    email = None
     if "user" in session:
         user = session["user"]
-        return render_template("user.html", user=user)
+
+        if request.method == "POST":
+            email = request.form["email"]
+            session["email"] = email
+            flash("Email was saved!")
+        else:
+            if "email" in session:
+                email = session["email"]
+
+        return render_template("user.html", email=email)
     else:
         flash("You are not logged in!")
         return redirect(url_for("login"))
@@ -39,6 +49,7 @@ def logout():
         user = session["user"]
         flash(f"You have been logged out!, {user}", "info")
     session.pop("user", None)
+    session.pop("email", None)
     return redirect(url_for("login"))
 
 if __name__ == "__main__":
