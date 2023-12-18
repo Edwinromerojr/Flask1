@@ -37,6 +37,10 @@ def login():
         session["user"] = user
 
         found_user = users.query.filter_by(name=user).first()
+        # delete method
+        # found_user = users.query.filter_by(name=user).delete()
+        # for user in found_user:
+        #     user.delete()
         if found_user:
             session["email"] = found_user.email
         else:
