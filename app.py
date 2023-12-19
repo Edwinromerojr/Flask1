@@ -86,6 +86,12 @@ def logout():
     session.pop("email", None)
     return redirect(url_for("login"))
 
+# static
+@app.route("/css")
+def css():
+    return render_template("home.html")
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
